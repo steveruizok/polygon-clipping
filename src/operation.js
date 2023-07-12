@@ -60,6 +60,7 @@ export class Operation {
     const queue = new SplayTree(SweepEvent.compare)
     for (let i = 0, iMax = multipolys.length; i < iMax; i++) {
       const sweepEvents = multipolys[i].getSweepEvents()
+
       for (let j = 0, jMax = sweepEvents.length; j < jMax; j++) {
         queue.insert(sweepEvents[j])
 
@@ -77,7 +78,9 @@ export class Operation {
     const sweepLine = new SweepLine(queue)
     let prevQueueSize = queue.size
     let node = queue.pop()
+    let i = 0
     while (node) {
+      i++
       const evt = node.key
       if (queue.size === prevQueueSize) {
         // prevents an infinite loop, an otherwise common manifestation of bugs
@@ -108,9 +111,12 @@ export class Operation {
       }
 
       const newEvents = sweepLine.process(evt)
+
       for (let i = 0, iMax = newEvents.length; i < iMax; i++) {
         const evt = newEvents[i]
-        if (evt.consumedBy === undefined) queue.insert(evt)
+        if (evt.consumedBy === undefined) {
+          queue.insert(evt)
+        }
       }
       prevQueueSize = queue.size
       node = queue.pop()

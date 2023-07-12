@@ -9,7 +9,10 @@ export class RingOut {
 
     for (let i = 0, iMax = allSegments.length; i < iMax; i++) {
       const segment = allSegments[i]
-      if (!segment.isInResult() || segment.ringOut) continue
+
+      if (!segment.isInResult() || segment.ringOut) {
+        continue
+      }
 
       let prevEvent = null
       let event = segment.leftSE
@@ -26,7 +29,9 @@ export class RingOut {
         events.push(event)
 
         /* Is the ring complete? */
-        if (event.point === startingPoint) break
+        if (event.point === startingPoint) {
+          break
+        }
 
         while (true) {
           const availableLEs = event.getAvailableLinkedEvents()
@@ -46,6 +51,7 @@ export class RingOut {
           /* Only one way to go, so cotinue on the path */
           if (availableLEs.length === 1) {
             nextEvent = availableLEs[0].otherSE
+
             break
           }
 
@@ -73,6 +79,7 @@ export class RingOut {
           /* Choose the left-most option to continue the walk */
           const comparator = event.getLeftmostComparator(prevEvent)
           nextEvent = availableLEs.sort(comparator)[0].otherSE
+
           break
         }
       }

@@ -36,6 +36,7 @@ export default class SweepEvent {
     else point.events.push(this)
     this.point = point
     this.isLeft = isLeft
+
     // this.segment, this.otherSE set by factory
   }
 
@@ -79,6 +80,7 @@ export default class SweepEvent {
     const events = []
     for (let i = 0, iMax = this.point.events.length; i < iMax; i++) {
       const evt = this.point.events[i]
+
       if (evt !== this && !evt.segment.ringOut && evt.segment.isInResult()) {
         events.push(evt)
       }

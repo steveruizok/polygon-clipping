@@ -18,9 +18,12 @@ export default class SweepLine {
     this.queue = queue
     this.tree = new SplayTree(comparator)
     this.segments = []
+
+    this.i = 0
   }
 
   process(event) {
+    this.i++
     const segment = event.segment
     const newEvents = []
 
@@ -83,6 +86,7 @@ export default class SweepLine {
       let nextMySplitter = null
       if (nextSeg) {
         const nextInter = nextSeg.getIntersection(segment)
+
         if (nextInter !== null) {
           if (!segment.isAnEndpoint(nextInter)) nextMySplitter = nextInter
           if (!nextSeg.isAnEndpoint(nextInter)) {

@@ -391,6 +391,7 @@ export default class Segment {
     const tmpEvt = this.rightSE
     this.rightSE = this.leftSE
     this.leftSE = tmpEvt
+    console.llg("swapping")
     this.leftSE.isLeft = true
     this.rightSE.isLeft = false
     for (let i = 0, iMax = this.windings.length; i < iMax; i++) {

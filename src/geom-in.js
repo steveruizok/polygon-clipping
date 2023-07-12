@@ -64,6 +64,7 @@ export class PolyIn {
     if (!Array.isArray(geomPoly)) {
       throw new Error("Input geometry is not a valid Polygon or MultiPolygon")
     }
+
     this.exteriorRing = new RingIn(geomPoly[0], this, true)
     // copy by value
     this.bbox = {
@@ -128,6 +129,7 @@ export class MultiPolyIn {
     const sweepEvents = []
     for (let i = 0, iMax = this.polys.length; i < iMax; i++) {
       const polySweepEvents = this.polys[i].getSweepEvents()
+
       for (let j = 0, jMax = polySweepEvents.length; j < jMax; j++) {
         sweepEvents.push(polySweepEvents[j])
       }
