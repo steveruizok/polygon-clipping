@@ -35,16 +35,14 @@ export default class SweepLine {
       return newEvents
     }
 
-    const node = event.isLeft
-      ? this.tree.insert(segment)
-      : this.tree.find(segment)
+    const node = event.isLeft ? this.tree.add(segment) : this.tree.find(segment)
 
     if (!node)
       throw new Error(
         `Unable to find segment #${segment.id} ` +
           `[${segment.leftSE.point.x}, ${segment.leftSE.point.y}] -> ` +
           `[${segment.rightSE.point.x}, ${segment.rightSE.point.y}] ` +
-          "in SweepLine tree. Please submit a bug report.",
+          "in SweepLine tree.",
       )
 
     let prevNode = node
@@ -177,7 +175,7 @@ export default class SweepLine {
     const newEvents = seg.split(pt)
     newEvents.push(rightSE)
     // splitting can trigger consumption
-    if (seg.consumedBy === undefined) this.tree.insert(seg)
+    if (seg.consumedBy === undefined) this.tree.add(seg)
     return newEvents
   }
 }
